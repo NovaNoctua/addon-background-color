@@ -31,21 +31,22 @@ jobs:
         run: npm run build:firefox
 
       - name: ls files
-        run: ls
+        run: ls -la
 
-      - name: Upload artifacts
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: artifacts
+      #     path: .output/
+
+      - name: Upload Chrome Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: artifacts
-          path: ./.output
-      # - name: Upload Chrome Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: chromeArtifact
-      #     path: ./.output/chrome-mv3
+          name: chromeArtifact
+          path: .output/chrome-mv3/
 
-      # - name: Upload Firefox Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: firefoxArtifact
-      #     path: ./.output/firefox-mv2
+      - name: Upload Firefox Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefoxArtifact
+          path: .output/firefox-mv2/
