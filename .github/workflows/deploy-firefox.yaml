@@ -30,6 +30,7 @@ jobs:
         run: npm run lint:check
 
       - name: Generate Firefox Build
+        id: build
         run: npm run build:firefox
 
       - name: Sign with web-ext for firefox
