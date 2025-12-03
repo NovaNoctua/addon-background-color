@@ -33,4 +33,5 @@ jobs:
         run: npm run build:firefox
 
       - name: Sign with web-ext for firefox
+        if: steps.build.outcome == 'success'
         run: web-ext sign --api-key ${{ secrets.AMO_JWT_ISSUER }} --api-secret ${{ secrets.AMO_JWT_SECRET }} --channel unlisted --source-dir ./output/firefox-mv2 --artifacts-dir ./signed
