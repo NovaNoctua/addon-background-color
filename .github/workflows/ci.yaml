@@ -1,0 +1,41 @@
+name: Automatic Build
+
+on: [push, pull_request]
+
+jobs:
+  Generate Artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout of the source code
+        uses: actions/checkout@v5
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+
+      - name: Install dependancies
+        run: npm ci
+
+      - name: Check vulnerabilities
+        run: npm audit
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Generate Chrome Build
+        run: npm run build
+
+      - name: Generate Firefox Build
+        run: npm run build:firefox
+
+      - name: Upload Chrome Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromeArtifact
+          path: ./.output/chrome-mv3
+
+      - name: Upload Firefox Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromeArtifact
+          path: ./.output/firefox-mv2
