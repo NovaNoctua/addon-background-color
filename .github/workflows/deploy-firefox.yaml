@@ -1,0 +1,45 @@
+name: Generate artifacts with the package of the extension for chrome and firefox
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+
+jobs:
+  Generate-Artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout of the source code
+        uses: actions/checkout@v5
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Install dependancies
+        run: npm ci
+
+      - name: Install web-ext
+        run: npm install --save-dev web-ext
+
+      - name: Check vulnerabilities
+        run: npm audit
+
+      - name: Lint code
+        run: npm run lint:check
+
+      - name: Generate Firefox Build
+        run: npm run build:firefox
+
+      - name: Sign with web-ext for firefox
+        run: |
+          npm web-ext sign \
+            --api-key ${{ secrets.AMO_JWT_ISSUER }} \
+            --api-secret ${{ secrets.AMO_JWT_SECRET }} \
+            --channel unlisted \
+            --source-dir ./output/firefox-mv2 \
+            -- artifacts-dir ./signed
