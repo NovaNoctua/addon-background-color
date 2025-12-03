@@ -1,9 +1,9 @@
-name: Automatic Build
+name: Generate artifacts with the package of the extension for chrome and firefox
 
 on: ["push", "pull_request"]
 
 jobs:
-  Generate Artifact:
+  Generate-Artifact:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,6 +12,8 @@ jobs:
 
       - name: Install Node
         uses: actions/setup-node@v6
+        with:
+          node-version: 22
 
       - name: Install dependancies
         run: npm ci
@@ -28,14 +30,20 @@ jobs:
       - name: Generate Firefox Build
         run: npm run build:firefox
 
-      - name: Upload Chrome Artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: chromeArtifact
-          path: ./.output/chrome-mv3
+          name: artifacts
+          path: ./output
 
-      - name: Upload Firefox Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: firefoxArtifact
-          path: ./.output/firefox-mv2
+      # - name: Upload Chrome Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: chromeArtifact
+      #     path: ./.output/chrome-mv3
+
+      # - name: Upload Firefox Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: firefoxArtifact
+      #     path: ./.output/firefox-mv2
