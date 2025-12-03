@@ -37,5 +37,5 @@ jobs:
       - name: Upload Firefox Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: chromeArtifact
+          name: firefoxArtifact
           path: ./.output/firefox-mv2
