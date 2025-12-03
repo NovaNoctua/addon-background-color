@@ -1,5 +1,4 @@
-name: Generate artifacts with the package of the extension for chrome and firefox
-
+name: Generate and deploy the firefox extension
 on:
   push:
     branches:
@@ -24,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Install web-ext
-        run: npm install --save-dev web-ext
+        run: npm install --global web-ext
 
       - name: Check vulnerabilities
         run: npm audit
@@ -37,7 +36,7 @@ jobs:
 
       - name: Sign with web-ext for firefox
         run: |
-          npm web-ext sign \
+          web-ext sign \
             --api-key ${{ secrets.AMO_JWT_ISSUER }} \
             --api-secret ${{ secrets.AMO_JWT_SECRET }} \
             --channel unlisted \
