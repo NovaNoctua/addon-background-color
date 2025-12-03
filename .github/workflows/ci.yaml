@@ -22,7 +22,7 @@ jobs:
         run: npm audit
 
       - name: Lint code
-        run: npm run lint
+        run: npm run lint:check
 
       - name: Generate Chrome Build
         run: npm run build
@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: artifacts
-          path: ./output
+          path: ./.output
 
       # - name: Upload Chrome Artifact
       #   uses: actions/upload-artifact@v4
