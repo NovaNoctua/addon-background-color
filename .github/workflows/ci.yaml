@@ -30,12 +30,14 @@ jobs:
       - name: Generate Firefox Build
         run: npm run build:firefox
 
+      - name: ls files
+        run: ls
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: ./.output
-
       # - name: Upload Chrome Artifact
       #   uses: actions/upload-artifact@v4
       #   with:
